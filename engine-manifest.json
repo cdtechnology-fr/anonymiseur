@@ -1,0 +1,27 @@
+{
+  "version": "0.1.0",
+  "engine": {
+    "url": "https://github.com/cdtechnology-fr/anonymiseur/releases/download/v0.1.0/ano-windows-x64.zip",
+    "sha256": "A_REMPLIR_APRES_LA_PREMIERE_RELEASE"
+  },
+  "model": {
+    "name": "bardsai",
+    "files": [
+      {
+        "name": "config.json",
+        "url": "https://huggingface.co/bardsai/eu-pii-anonimization-multilang-v3/resolve/091984b5fbce4c161abc4776ed0f4e3206e1b374/config.json",
+        "sha256": "9f34718817db63125b1dcd85b0b6923381ea7c443802675e81dd163d1f12b06c"
+      },
+      {
+        "name": "tokenizer.json",
+        "url": "https://huggingface.co/bardsai/eu-pii-anonimization-multilang-v3/resolve/091984b5fbce4c161abc4776ed0f4e3206e1b374/tokenizer.json",
+        "sha256": "609d8f4c067cd3950f88594c5a802616cea245823836ef5848ee4fc40aab5b6f"
+      },
+      {
+        "name": "model_quantized.onnx",
+        "url": "https://huggingface.co/bardsai/eu-pii-anonimization-multilang-v3/resolve/091984b5fbce4c161abc4776ed0f4e3206e1b374/onnx/model_quantized.onnx",
+        "sha256": "762c851fd948915cc40c5b226f0c8d19dd3a48064a171368fbc56ba97a8d1ce5"
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+[package]
+name = "ano"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.104"
+fancy-regex = "0.20.1"
+getrandom = "0.4.3"
+indexmap = { version = "2.14.2", features = ["serde"] }
+ndarray = "0.16"
+ort = { version = "=2.0.0-rc.10", default-features = false, features = ["load-dynamic", "ndarray"] }
+pdf-extract = "0.12.1"
+quick-xml = "0.42.0"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+sha2 = "0.11.1"
+tokenizers = "0.23.2"
+zip = { version = "9.5.0", default-features = false, features = ["deflate"] }

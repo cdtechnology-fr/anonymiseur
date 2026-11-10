@@ -1,0 +1,12 @@
+{
+  "name": "cdtechnology",
+  "owner": { "name": "CD Technology" },
+  "description": "Outils CD Technology pour Claude Code",
+  "plugins": [
+    {
+      "name": "anonymiseur",
+      "source": "./",
+      "description": "Anonymisation locale et transparente des données personnelles avant envoi à Claude."
+    }
+  ]
+}

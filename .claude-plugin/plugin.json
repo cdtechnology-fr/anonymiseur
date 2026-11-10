@@ -1,0 +1,6 @@
+{
+  "name": "anonymiseur",
+  "version": "0.1.0",
+  "description": "Anonymisation locale automatique des documents avant lecture par Claude, puis restauration des valeurs dans les livrables.",
+  "author": {"name": "CD Technology"}
+}
