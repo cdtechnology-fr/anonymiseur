@@ -2,7 +2,7 @@
   "version": "0.1.0",
   "engine": {
     "url": "https://github.com/cdtechnology-fr/anonymiseur/releases/download/v0.1.0/ano-windows-x64.zip",
-    "sha256": "A_REMPLIR_APRES_LA_PREMIERE_RELEASE"
+    "sha256": "ca6829efc337dd6a7960030786ef2cfccc409dee597f0bcc42ccd1ff772f7d81"
   },
   "model": {
     "name": "bardsai",
