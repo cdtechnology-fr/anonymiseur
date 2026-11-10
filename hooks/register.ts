@@ -30,6 +30,8 @@ const RULE = `ANONYMISATION. Les données personnelles et de santé sont remplac
 let table: Table = {}
 // chemin du moteur, connu après l'installation
 let ano = ''
+// la consigne sur les jetons n'est envoyée qu'une fois par session
+let ruleSent = false
 
 function extOf(path: string): string {
   const m = /\.([A-Za-z0-9]+)$/.exec(path)
@@ -139,22 +141,28 @@ async function warmUp($: any): Promise<void> {
 
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
+    ruleSent = false
     await warmUp($)
     return next(e)
   })
 
-  on('prompt.compose', async ($, e, next) => {
-    const r = await next(e)
-    return {
-      sections: [...r.sections, { id: 'anonymiseur:rule', text: RULE, scope: 'session' as const }],
-    }
-  })
-
   // Le message de l'utilisateur : anonymisé avant d'être enregistré (même dans le
   // fichier de transcription). Une commande slash n'accepte pas de réécriture.
+  // La consigne sur les jetons passe par `context` (au premier message de la session) :
+  // `prompt.compose` est ignoré pour un mod utilisateur sous connexion Team.
   on('prompt.submit', async ($, e, next) => {
     if (e.command) return next(e)
-    return next({ ...e, text: await anonymize($, e.text) })
+    // Pièces jointes (images, fichiers glissés) : elles ne peuvent pas être anonymisées.
+    if (e.attachments !== undefined && e.attachments.length > 0) {
+      $.ui.toast("Pièce jointe non envoyée : indiquez plutôt le nom du fichier dans votre message.")
+      return { drop: "Message non envoyé : les pièces jointes ne peuvent pas être anonymisées. Écrivez le nom du fichier (ex. notes.docx) et Claude le lira de façon sécurisée." }
+    }
+    // Un fichier cité avec « @chemin » serait injecté sans passer par l'anonymisation : on retire l'@,
+    // Claude le lira avec l'outil Read (redirigé vers la copie anonymisée).
+    const text = await anonymize($, e.text.replace(/(^|\s)@(?=[\w.\\/~-]+\.\w{2,5}\b)/g, '$1'))
+    const context = ruleSent ? e.context : [...(e.context ?? []), RULE]
+    ruleSent = true
+    return next({ ...e, text, context })
   }).catch(($, e, next) =>
     next.called ? next(e) : { drop: 'Message non envoyé : anonymisation indisponible.' },
   )
